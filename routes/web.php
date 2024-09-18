@@ -16,6 +16,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/', [ChamadoController::class, 'index'])->name('chamados.index');
 
+// Rota para apagar um chamado
+Route::get('/chamados/{id}/delete', [ChamadoController::class, 'delete'])->name('chamados.delete');
+Route::delete('/chamados/{id}', [ChamadoController::class, 'destroy'])->name('chamados.destroy');
+
 // Rota para exibir o formulário de criação de um novo chamado
 Route::get('/chamados/create', [ChamadoController::class, 'create'])->name('chamados.create');
 

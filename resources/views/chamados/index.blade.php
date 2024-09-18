@@ -47,6 +47,9 @@
                             <a href="{{ route('chamados.show', $chamado->id) }}">
                                 <button type="button">Visualizar</button>
                             </a>
+                            <a href="{{ route('chamados.delete', $chamado->id) }}">
+                            <button type="button">Eliminar</button>
+
                     </tr>
                 @endforeach
             </tbody>

@@ -109,8 +109,22 @@ class ChamadoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Chamado $chamado)
+    public function delete($id)
     {
-        //
+        $chamado = Chamado::findOrFail($id); // Busca o chamado pelo ID
+        return view('chamados.delete', compact('chamado')); // Retorna a view com o chamado a ser deletado
     }
+    
+    // app/Http/Controllers/ChamadoController.php
+    
+    public function destroy($id)
+    {
+        $chamado = Chamado::findOrFail($id);
+        $chamado->delete(); // Deleta o chamado
+    
+        return redirect()->route('chamados.index')->with('success', 'Chamado excluído com sucesso!');
+    }
+    
+    
+    
 }
