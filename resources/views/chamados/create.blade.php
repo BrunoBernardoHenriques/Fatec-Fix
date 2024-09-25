@@ -23,6 +23,16 @@
 
         <br><br>
 
+        <label for="local_id">Local:</label>
+        <select name="local_id" id="local_id" required>
+            @foreach ($locais as $local)
+                <option value="{{ $local->id }}">{{ $local->nome }}</option>
+            @endforeach
+        </select>
+       <br><br>
+
+
+
         <label for="descricao_resumida">Descrição Resumida:</label>
         <textarea name="descricao_resumida" id="descricao_resumida" required></textarea>
 
@@ -33,21 +43,16 @@
 
         <br><br>
 
-        <label for="local">Local:</label>
-        <input type="text" name="local" id="local" required>
-
-        <br><br>
-
         <label for="solicitante">Solicitante:</label>
         <input type="text" name="solicitante" id="solicitante" required>
 
         <br><br>
 
-        <label for="status">Status:</label>
-        <select name="status" id="status" required>
-            <option value="aberto">Aberto</option>
-            <option value="em andamento">Em andamento</option>
-            <option value="encerrado">Encerrado</option>
+        <label for="status_id">Status:</label>
+        <select name="status_id" id="status_id" required>
+            @foreach ($status as $status)
+                <option value="{{ $status->id }}">{{ $status->nome }}</option>
+            @endforeach
         </select>
 
         <br><br>

@@ -5,27 +5,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('chamados', function (Blueprint $table) {
-            // Adiciona a coluna local_id como chave estrangeira
-            $table->unsignedBigInteger('local_id')->nullable()->after('solicitante'); // Após solicitante
+            // Se a coluna já existir, remova-a primeiro
+            if (Schema::hasColumn('chamados', 'local_id')) {
+                $table->dropColumn('local_id');
+            }
 
-            // Define a relação com a tabela locais
+            // Agora adicione a coluna novamente
+            $table->unsignedBigInteger('local_id')->nullable()->after('solicitante');
             $table->foreign('local_id')->references('id')->on('locais')->onDelete('set null');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('chamados', function (Blueprint $table) {
-            // Remove a foreign key e a coluna
             $table->dropForeign(['local_id']);
             $table->dropColumn('local_id');
         });

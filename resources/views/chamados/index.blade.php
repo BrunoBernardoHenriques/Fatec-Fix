@@ -38,15 +38,21 @@
                         <td>{{ $chamado->id }}</td>
                         <td>{{ $chamado->tipo }}</td>
                         <td>{{ $chamado->descricao_resumida }}</td>
-                        <td>{{ $chamado->local }}</td>
+                        <td>{{ $chamado->local->nome }}</td> <!-- Supondo que o campo que contém o nome no modelo Local é 'nome' -->
                         <td>{{ $chamado->solicitante }}</td>
-                        <td>{{ $chamado->status }}</td>
+                        <td>{{ $chamado->status ? $chamado->status->nome : 'Indefinido' }}</td>
+
                         <td>{{ \Carbon\Carbon::parse($chamado->data_abertura)->format('d/m/Y') }}</td>
                         <td>{{ $chamado->data_encerramento ? \Carbon\Carbon::parse($chamado->data_encerramento)->format('d/m/Y') : 'N/A' }}</td>
                         <td>
                             <a href="{{ route('chamados.show', $chamado->id) }}">
                                 <button type="button">Visualizar</button>
                             </a>
+                            
+                            <a href="{{ route('chamados.edit', $chamado->id) }}">
+                    <button type="button">Editar</button>
+                            </a>
+
                             <a href="{{ route('chamados.delete', $chamado->id) }}">
                             <button type="button">Eliminar</button>
 

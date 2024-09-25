@@ -28,5 +28,7 @@ Route::post('/chamados', [ChamadoController::class, 'store'])->name('chamados.st
 
 Route::get('/chamados/{id}', [ChamadoController::class, 'show'])->name('chamados.show');
 
+
+Route::resource('chamados', ChamadoController::class); // Isso cria todas as rotas RESTful para o controlador
 Route::patch('/chamados/{id}/status', [ChamadoController::class, 'updateStatus'])->name('chamados.updateStatus');
 });
