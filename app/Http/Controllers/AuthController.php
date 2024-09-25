@@ -42,7 +42,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('name', 'password'))) {
-            return redirect()->intended('chamados.index');
+            return redirect()->intended('chamados/');
         }
 
         return back()->withErrors(['name' => 'Credenciais inválidas']);

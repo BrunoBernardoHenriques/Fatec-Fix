@@ -4,33 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="/css/auth/login.css">
+
+    <!-- Incluindo Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Login</h1>
+<body class="login-body">
+    <div class="login-container">
+        <h1 class="text-center">Login</h1>
 
-    @if(session('success'))
-        <div style="color: green;">{{ session('success') }}</div>
-    @endif
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-    @if($errors->any())
-        <div style="color: red;">
-            @foreach($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
-    @endif
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
 
-    <form action="{{ route('login') }}" method="POST">
-        @csrf
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
+        <form action="{{ route('login') }}" method="POST" class="login-form">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label">Senha:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
 
-    <a href="{{ route('register') }}">Registrar</a>
+            <button type="submit" class="btn btn-success w-100">Login</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -12,7 +12,12 @@
     <a href="{{ route('chamados.create') }}">
         <button type="button">Criar Novo Chamado</button>
     </a>
-
+    
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+    
     <h2>Lista de Chamados</h2>
 
     @if($chamados->isEmpty())
