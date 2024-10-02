@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Chamado</title>
 </head>
-@include('chamados.header')
+
 <body>
+@include('chamados.header')
     <h1>Editar Chamado #{{ $chamado->id }}</h1>
 
     <!-- Exibir mensagens de erro de validação -->
@@ -24,15 +25,13 @@
         @csrf
         @method('PUT') <!-- Método para atualização -->
         
-        <label for="tipo">Tipo de Chamado:</label>
-        <select name="tipo" id="tipo" required>
-            <option value="Problema de Rede" {{ $chamado->tipo == 'Problema de Rede' ? 'selected' : '' }}>Problema de Rede</option>
-            <option value="Acesso no Siga" {{ $chamado->tipo == 'Acesso no Siga' ? 'selected' : '' }}>Acesso no Siga</option>
-            <option value="Acesso no Teams" {{ $chamado->tipo == 'Acesso no Teams' ? 'selected' : '' }}>Acesso no Teams</option>
-            <option value="Problema no Computador" {{ $chamado->tipo == 'Problema no Computador' ? 'selected' : '' }}>Problema no Computador</option>
-            <option value="Problema na Impressora" {{ $chamado->tipo == 'Problema na Impressora' ? 'selected' : '' }}>Problema na Impressora</option>
-            <option value="Outros" {{ $chamado->tipo == 'Outros' ? 'selected' : '' }}>Outros</option>
-        </select>
+        <label for="tipo_id">Tipo de Chamado:</label>
+<select name="tipo_id" id="tipo_id" required>
+    @foreach ($tipos as $tipo)
+        <option value="{{ $tipo->id }}">{{ $tipo->nome }}</option>
+    @endforeach
+</select>
+
 
         <br><br>
 

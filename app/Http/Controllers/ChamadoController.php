@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\TipoChamado;
 use App\Models\Local;
 use App\Models\Chamado;
 use App\Models\Status; 
@@ -13,10 +13,7 @@ class ChamadoController extends Controller
     {
         // Carrega os chamados junto com seus locais e status
         $chamados = Chamado::with(['local', 'status'])
-            ->orderByRaw("FIELD(status_id, (SELECT id FROM status WHERE nome = 'aberto'), (SELECT id FROM status WHERE nome = 'em andamento'), (SELECT id FROM status WHERE nome = 'encerrado'))")
-            ->orderBy('data_abertura', 'asc')
-            ->get();
-
+        ->paginate(1); 
         return view('chamados.index', compact('chamados'));
     }
 
@@ -24,25 +21,18 @@ class ChamadoController extends Controller
 
     public function create()
     {
-        $tipos_chamados = [
-            'Problema de Rede',
-            'Acesso no Siga',
-            'Acesso no Teams',
-            'Problema no Computador',
-            'Problema na Impressora',
-            'Outros'
-        ];
-        
+   
+        $tipos = TipoChamado::all();
         $locais = Local::all();
         $status = Status::all(); // Obtém todos os status disponíveis
-        return view('chamados.create', compact('tipos_chamados', 'locais', 'status'));
+        return view('chamados.create', compact('tipos', 'locais', 'status'));
     }
 
 
     public function store(Request $request)
     {
         $request->validate([
-            'tipo' => 'required|string',
+            'tipo_id' => 'required|exists:tipos_chamado,id',
             'descricao_resumida' => 'required|string',
             'descricao_completa' => 'nullable|string',
             'local_id' => 'required|exists:locais,id', // Validar se o ID do local existe
@@ -51,7 +41,7 @@ class ChamadoController extends Controller
         ]);
 
         $chamado = new Chamado;
-        $chamado->tipo = $request->tipo;
+        $chamado->tipo_id = $request->tipo_id;
         $chamado->descricao_resumida = $request->descricao_resumida;
         $chamado->descricao_completa = $request->descricao_completa;
         $chamado->local_id = $request->local_id; // Atualiza para usar local_id
@@ -87,15 +77,16 @@ class ChamadoController extends Controller
     public function edit($id)
     {
         $chamado = Chamado::findOrFail($id);
+        $tipos = TipoChamado::all();
         $locais = Local::all(); // Assume que você tem um modelo Local para pegar os locais
         $status = Status::all(); // Obtém todos os status disponíveis
-        return view('chamados.edit', compact('chamado', 'locais', 'status'));
+        return view('chamados.edit', compact('chamado', 'locais', 'status','tipos'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'tipo' => 'required|string',
+            'tipo_id' => 'required|exists:tipos_chamado,id',
             'descricao_resumida' => 'required|string',
             'descricao_completa' => 'nullable|string',
             'local_id' => 'required|exists:locais,id', // Verifica se o local existe
@@ -105,7 +96,7 @@ class ChamadoController extends Controller
         ]);
 
         $chamado = Chamado::findOrFail($id);
-        $chamado->tipo = $request->tipo;
+        $chamado->tipo_id = $request->tipo_id;
         $chamado->descricao_resumida = $request->descricao_resumida;
         $chamado->descricao_completa = $request->descricao_completa;
         $chamado->local_id = $request->local_id; // Atualiza o ID do local

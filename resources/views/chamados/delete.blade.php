@@ -8,16 +8,16 @@
     <title>Excluir Chamado</title>
 </head>
 
-@include('chamados.header')
 <body>
+@include('chamados.header')
     <h1>Excluir Chamado #{{ $chamado->id }}</h1>
 
-    <p><strong>Tipo:</strong> {{ $chamado->tipo }}</p>
+    <p><strong>Tipo:</strong> {{ $chamado->tipo->nome }}</p>
     <p><strong>Descrição Resumida:</strong> {{ $chamado->descricao_resumida }}</p>
     <p><strong>Descrição Completa:</strong> {{ $chamado->descricao_completa ?? 'N/A' }}</p>
-    <p><strong>Local:</strong> {{ $chamado->local }}</p>
+    <p><strong>Local:</strong> {{ $chamado->local->nome }}</p>
     <p><strong>Solicitante:</strong> {{ $chamado->solicitante }}</p>
-    <p><strong>Status:</strong> {{ $chamado->status }}</p>
+    <p><strong>Status:</strong> {{ $chamado->status->nome }}</p>
     <p><strong>Data de Abertura:</strong> {{ $chamado->data_abertura }}</p>
     <p><strong>Data de Encerramento:</strong> {{ $chamado->data_encerramento ?? 'N/A' }}</p>
 

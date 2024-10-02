@@ -4,14 +4,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <header class="header-index">
 
-<h1>FatecFix</h1>
+<h1 class="H1_HEADER">FatecFix</h1>
 
    
-    
-    <form action="{{ route('logout') }}" method="POST">
+ 
+    <form class="form-logout" action="{{ route('logout') }}" method="POST">
         @csrf
-        <button type="submit" class="btn-logout">Sair</button>
+        <button  class="btn-logout">Sair</button>
     </form>
-
+</div>
 
 </header>

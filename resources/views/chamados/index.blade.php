@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="/css/chamados/index.css">
 </head>
 
-@include('chamados.header')
+
 
 <body>
-    
-    <div class="SubHeader">
+@include('chamados.header')
+
+
+
     <h2>Lista de Chamados</h2>
 
     <a href="{{ route('chamados.create') }}">
@@ -43,7 +45,7 @@
                 @foreach($chamados as $chamado)
                     <tr>
                         <td>{{ $chamado->id }}</td>
-                        <td>{{ $chamado->tipo }}</td>
+                        <td>{{ $chamado->tipo->nome }}</td>
                         <td>{{ $chamado->descricao_resumida }}</td>
                         <td>{{ $chamado->local->nome }}</td> <!-- Supondo que o campo que contém o nome no modelo Local é 'nome' -->
                         <td>{{ $chamado->solicitante }}</td>
@@ -66,8 +68,14 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table>    
+        <div class="pagination-container">
+            {{ $chamados->links('chamados.pagination') }}
+        </div>
+
     @endif
+
+
 </div>
 </body>
 </html>

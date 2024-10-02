@@ -1,0 +1,81 @@
+
+body {
+
+    height: 100vh; 
+
+}
+.body_create {
+    background-color: #f2f2f2; /* Cinza claro */
+
+    margin: 0;
+}
+
+
+.form_create {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    
+}
+
+h1 {
+    margin-bottom: 2rem; 
+    color: #333; 
+}
+
+label {
+    margin-bottom: 0.5rem; 
+    display: block; 
+    color: #555; 
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%; /* Largura total */
+    padding: 0.5rem; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Borda padrão */
+    border-radius: 4px; /* Bordas arredondadas */
+    margin-bottom: 1rem; /* Espaçamento abaixo de cada campo */
+}
+
+/* Estilo do botão de envio */
+button[type="submit"] {
+    background-color: #28a745; /* Verde para o botão de criação */
+    border: none; /* Sem borda */
+    color: white; /* Cor do texto */
+    padding: 0.75rem 1.5rem; /* Espaçamento interno do botão */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte */
+}
+
+/* Estilo do botão de envio ao passar o mouse */
+button[type="submit"]:hover {
+    background-color: #218838; /* Tom mais escuro de verde ao passar o mouse */
+}
+
+/* Estilo do link de voltar */
+a {
+    display: inline-block; /* Para que o link funcione como um botão */
+    margin-top: 1rem; /* Espaçamento acima do link */
+    color: #007bff; /* Cor do link */
+    text-decoration: none; /* Remover o sublinhado */
+}
+
+/* Estilo do link de voltar ao passar o mouse */
+a:hover {
+    text-decoration: underline; /* Sublinha o link ao passar o mouse */
+}
+
+.div_centro{
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente, se a altura for definida */
+    height: 100vh;
+} 
+
+

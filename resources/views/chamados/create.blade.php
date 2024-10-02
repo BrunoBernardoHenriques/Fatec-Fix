@@ -4,24 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/chamados/create.css"> 
     <title>Criar Chamado</title>
 </head>
 
-@include('chamados.header')
-<body>
-    <h1>Criar Novo Chamado</h1>
 
-    <form action="{{ route('chamados.store') }}" method="POST">
+<body class="body_create">
+    @include('chamados.header')
+
+     <div class="div_centro">
+
+    <form class="form_create" action="{{ route('chamados.store') }}" method="POST">     
+        <h1>Criar Novo Chamado</h1>
         @csrf
-        <label for="tipo">Tipo de Chamado:</label>
-        <select name="tipo" id="tipo" required>
-            <option value="Problema de Rede">Problema de Rede</option>
-            <option value="Acesso no Siga">Acesso no Siga</option>
-            <option value="Acesso no Teams">Acesso no Teams</option>
-            <option value="Problema no Computador">Problema no Computador</option>
-            <option value="Problema na Impressora">Problema na Impressora</option>
-            <option value="Outros">Outros</option>
-        </select>
+
+        <label for="tipo_id">Tipo de Chamado:</label>
+<select name="tipo_id" id="tipo_id" required>
+    @foreach ($tipos as $tipo)
+        <option value="{{ $tipo->id }}">{{ $tipo->nome }}</option>
+    @endforeach
+</select>
+
 
         <br><br>
 
@@ -60,8 +63,19 @@
         <br><br>
 
         <button type="submit">Criar Chamado</button>
-    </form>
 
+        <br>
     <a href="{{ route('chamados.index') }}">Voltar para a listagem de chamados</a>
+    </form>
+</div>
 </body>
 </html>
+@if($errors->any())
+    <div>
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif

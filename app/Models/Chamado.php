@@ -27,7 +27,12 @@ class Chamado extends Model
     {
         return $this->belongsTo(Status::class); // A relação é 'belongsTo' pois um chamado tem um status
     }
-
+    
+    public function tipo()
+    {
+        return $this->belongsTo(TipoChamado::class, 'tipo_id');
+    }
+    
 
 
 
