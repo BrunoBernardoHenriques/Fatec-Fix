@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excluir Chamado</title>
 </head>
+
+@include('chamados.header')
 <body>
     <h1>Excluir Chamado #{{ $chamado->id }}</h1>
 

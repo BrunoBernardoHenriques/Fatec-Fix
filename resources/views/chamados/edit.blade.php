@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Chamado</title>
 </head>
+@include('chamados.header')
 <body>
     <h1>Editar Chamado #{{ $chamado->id }}</h1>
 

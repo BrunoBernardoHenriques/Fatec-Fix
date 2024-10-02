@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Chamado</title>
 </head>
+
+@include('chamados.header')
 <body>
     <h1>Criar Novo Chamado</h1>
 

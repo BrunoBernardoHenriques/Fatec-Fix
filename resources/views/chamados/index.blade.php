@@ -5,26 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listagem de Chamados</title>
+    <link rel="stylesheet" href="/css/chamados/index.css">
 </head>
+
+@include('chamados.header')
+
 <body>
-    <h1>Bem-vindo ao sistema FatecFix</h1>
+    
+    <div class="SubHeader">
+    <h2>Lista de Chamados</h2>
 
     <a href="{{ route('chamados.create') }}">
-        <button type="button">Criar Novo Chamado</button>
+        <button type="button" class="btn-abrir">Abrir Chamado</button>
     </a>
-    
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
-    
-    <h2>Lista de Chamados</h2>
 
     @if($chamados->isEmpty())
         <p>Nenhum chamado foi encontrado.</p>
     @else
-        <table border="1">
-            <thead>
+
+</div>
+    <div class="tabela">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
                 <tr>
                     <th>ID</th>
                     <th>Tipo</th>
@@ -34,7 +36,7 @@
                     <th>Status</th>
                     <th>Data de Abertura</th>
                     <th>Data de Encerramento</th>
-                    <th>Ações</th>
+                    <th class="acoes">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,20 +53,21 @@
                         <td>{{ $chamado->data_encerramento ? \Carbon\Carbon::parse($chamado->data_encerramento)->format('d/m/Y') : 'N/A' }}</td>
                         <td>
                             <a href="{{ route('chamados.show', $chamado->id) }}">
-                                <button type="button">Visualizar</button>
+                                <button type="button" class="btn-visualizar">Visualizar</button>
                             </a>
                             
                             <a href="{{ route('chamados.edit', $chamado->id) }}">
-                    <button type="button">Editar</button>
+                    <button type="button"class="btn-editar">Editar</button>
                             </a>
 
                             <a href="{{ route('chamados.delete', $chamado->id) }}">
-                            <button type="button">Eliminar</button>
+                            <button type="button" class="btn-eliminar">Eliminar</button>
 
                     </tr>
                 @endforeach
             </tbody>
         </table>
     @endif
+</div>
 </body>
 </html>

@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChamadoController;
-
+use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\AuthController;
+
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -16,7 +17,7 @@ Route::post('/logout', function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth',RedirectIfAuthenticated::class)->group(function () {
 
 Route::get('/', [ChamadoController::class, 'index'])->name('chamados.index');
 

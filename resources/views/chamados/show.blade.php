@@ -25,6 +25,8 @@
         }
     </script>
 </head>
+
+@include('chamados.header')
 <body>
     <h1>Detalhes do Chamado #{{ $chamado->id }}</h1>
 
