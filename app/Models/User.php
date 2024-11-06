@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'password',
+        'type',
     ];
 
     /**
@@ -42,4 +43,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    // No modelo User.php
+public function userType()
+{
+    return $this->belongsTo(UserType::class, 'type');
+}
+
 }

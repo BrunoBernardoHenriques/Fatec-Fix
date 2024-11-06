@@ -20,7 +20,8 @@
         </div>
     @endif
 
-    <form action="{{ route('register') }}" method="POST">
+    <form action="{{ route('auth.register') }}" method="POST">
+
         @csrf
         <label for="name">Nome:</label>
         <input type="text" id="name" name="name" required>
@@ -31,6 +32,17 @@
         <label for="password_confirmation">Confirme a Senha:</label>
         <input type="password" id="password_confirmation" name="password_confirmation" required>
         <br>
+
+     <!-- Select para o tipo de usuário -->
+<label for="type">Tipo de Usuário:</label>
+<select id="type" name="type" required>
+    @foreach($userTypes as $type)
+        <option value="{{ $type->id }}">{{ $type->type_name }}</option>
+    @endforeach
+</select>
+<br>
+
+        
         <button type="submit">Registrar</button>
     </form>
 

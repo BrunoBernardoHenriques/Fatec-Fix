@@ -13,7 +13,7 @@ class ChamadoController extends Controller
     {
         // Carrega os chamados junto com seus locais e status
         $chamados = Chamado::with(['local', 'status'])
-        ->paginate(1); 
+        ->paginate(15); 
         return view('chamados.index', compact('chamados'));
     }
 
@@ -123,4 +123,23 @@ class ChamadoController extends Controller
 
         return redirect()->route('chamados.index')->with('success', 'Chamado atualizado com sucesso!');
     }
+public function meusChamados()
+{
+    // Verifique se você tem um campo 'user_id' ou 'created_by' para associar o usuário aos chamados
+    $chamados = Chamado::where('created_by', auth()->id())->paginate(15); // ou 'user_id', se for o caso
+    return view('chamados.meus', compact('chamados'));
+}
+
+
+    public function gerenciarUsuarios()
+{
+    // Obtém todos os usuários para exibição
+    $usuarios = User::paginate(15);
+
+    return view('usuarios.gerenciar', compact('usuarios'));
+}
+
+
+
+
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\UserType;
 
 class AuthController extends Controller
 {
@@ -16,7 +17,11 @@ class AuthController extends Controller
 
     public function showRegisterForm()
     {
-        return view('auth.register');
+        // Obtém todos os tipos de usuário
+        $userTypes = UserType::all(); 
+    
+        // Passa para a view 'auth.register'
+        return view('auth.register', compact('userTypes'));
     }
 
     public function register(Request $request)
@@ -24,11 +29,13 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|unique:users,name',
             'password' => 'required|string|min:8|confirmed',
+              'type' => 'required|exists:user_types,id',
         ]);
 
         User::create([
             'name' => $request->name,
             'password' => Hash::make($request->password),
+            'type' => $request->type,  
         ]);
 
         return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
