@@ -60,6 +60,7 @@ Route::patch('/chamados/{id}/status', [ChamadoController::class, 'updateStatus']
     // Rota para excluir um usuário
     Route::delete('/usuarios/{id}', [UserController::class, 'excluirUsuario'])->name('usuarios.excluir');
 
+    Route::get('/dashboard', [ChamadoController::class, 'dashboard'])->name('dashboard');
 
 
 

@@ -140,6 +140,44 @@ public function meusChamados()
 }
 
 
+public function dashboard(Request $request)
+{
+    $query = Chamado::query();
+
+    // Aplicar filtros de mês e ano
+    if ($request->has('month') && $request->month != '') {
+        $query->whereMonth('chamados.created_at', $request->month); // Especificando que 'created_at' é da tabela 'chamados'
+    }
+
+    if ($request->has('year') && $request->year != '') {
+        $query->whereYear('chamados.created_at', $request->year); // Especificando que 'created_at' é da tabela 'chamados'
+    }
+
+    // Obter os dados para os gráficos
+    $tipoChamados = $query->join('tipos_chamado', 'chamados.tipo_id', '=', 'tipos_chamado.id')
+        ->selectRaw('tipos_chamado.nome as tipo, COUNT(*) as count')
+        ->groupBy('tipos_chamado.nome')
+        ->pluck('count', 'tipo');
+
+    $lugaresChamados = $query->join('locais', 'chamados.local_id', '=', 'locais.id')
+        ->selectRaw('locais.nome as place, COUNT(*) as count')
+        ->groupBy('locais.nome')
+        ->pluck('count', 'place');
+
+    $statusChamados = $query->join('status', 'chamados.status_id', '=', 'status.id')
+        ->selectRaw('status.nome as status_name, COUNT(*) as count')
+        ->groupBy('status.nome')
+        ->pluck('count', 'status_name');
+
+    // Verificar se não há registros
+    $noRecordsFound = $query->count() == 0;
+
+    return view('chamados.dashboard', compact('tipoChamados', 'lugaresChamados', 'statusChamados', 'noRecordsFound'));
+}
+
+
+
+
 
 
 }
