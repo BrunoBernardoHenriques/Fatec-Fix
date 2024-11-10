@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar</title>
+    <link rel="stylesheet" href="/css/auth/register.css">
 </head>
-<body>
+<body class="register-body">
+@include('chamados.header')
+
+<div class="register-container">
     <h1>Registrar</h1>
 
     @if(session('success'))
@@ -20,17 +24,16 @@
         </div>
     @endif
 
-    <form action="{{ route('auth.register') }}" method="POST">
+    <form action="{{ route('auth.register') }}" method="POST" class="register-form">
 
         @csrf
         <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
+        <input type="text" id="name" name="name" required class="form-control">
         <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" required class="form-control">
         <br>
         <label for="password_confirmation">Confirme a Senha:</label>
-        <input type="password" id="password_confirmation" name="password_confirmation" required>
+        <input type="password" id="password_confirmation" name="password_confirmation" required class="form-control">
         <br>
 
      <!-- Select para o tipo de usuário -->
@@ -39,13 +42,16 @@
     @foreach($userTypes as $type)
         <option value="{{ $type->id }}">{{ $type->type_name }}</option>
     @endforeach
-</select>
+</select>        
+<br>
 <br>
 
         
         <button type="submit">Registrar</button>
-    </form>
 
-    <a href="{{ route('login') }}">Login</a>
+        <a href="{{ route('chamados.index') }}">Voltar para a listagem de chamados</a>
+    </form>
+    </div>
+
 </body>
 </html>

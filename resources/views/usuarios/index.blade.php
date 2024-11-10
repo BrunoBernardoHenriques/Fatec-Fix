@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Usuários</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/chamados/index.css">
 </head>
 <body>
 @include('chamados.header')
-    <div class="container mt-3">
+    <div >
         <h1>Gerenciar Usuários</h1>
 
         <a href="{{ route('auth.register') }}">
@@ -17,8 +17,10 @@
         @if($usuarios->isEmpty())
             <p>Nenhum usuário encontrado.</p>
         @else
-            <table class="table table-striped table-bordered">
-                <thead>
+
+        <div class="tabela">
+        <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
@@ -34,7 +36,7 @@
                             <td>{{ $usuario->userType->type_name }}</td>
                             <td>
                                 <a href="{{ route('usuarios.editar', $usuario->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                                <a  class="btn btn-danger btn-sm">Excluir</a>
+                                <a  class="btn btn-primary btn-sm">Chamados Abertos</a>
                             </td>
                         </tr>
                     @endforeach

@@ -14,7 +14,7 @@
     z-index: 1000; /* Garante que o header fique acima de outros elementos */
 }
 
-.body_create {
+.body_edit {
     background-color: #f2f2f2; /* Cinza claro */
     margin: 0;
     padding-top: 55px; /* Espaço suficiente para o header fixo */
@@ -28,7 +28,7 @@
     padding-top: 20px; /* Adiciona algum espaçamento acima do conteúdo */
 }
 
-.form_create {
+.form_edit {
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 8px;

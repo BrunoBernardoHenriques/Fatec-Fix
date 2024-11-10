@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Chamado</title>
+    <link rel="stylesheet" href="/css/chamados/show.css"> 
     <script>
     
 
@@ -29,6 +30,9 @@
 
 <body>
 @include('chamados.header')
+
+<div class="container">
+<div class="call-details">
     <h1>Detalhes do Chamado #{{ $chamado->id }}</h1>
 
    
@@ -39,9 +43,11 @@
     <p><strong>Solicitante:</strong> {{ $chamado->solicitante }}</p>
     <p><strong>Chamado Aberto Por:</strong> {{ $chamado->creator->name }}</p>
     <p><strong>Status:</strong> {{ $chamado->status->nome}}</p>
-    <p><strong>Data de Abertura:</strong> {{ $chamado->data_abertura }}</p>
+    <p><strong>Data de Abertura:</strong> {{ $chamado->created_at }}</p>
     <p><strong>Data de Encerramento:</strong> {{ $chamado->data_encerramento ?? 'N/A' }}</p>
-
+    <a href="{{ route('chamados.index') }}">Voltar para a listagem de chamados</a>
+    </div>
+    <div class="update-details">
     <h2>Atualizações do Chamado</h2>
     
     @if($chamado->atualizacoes->isNotEmpty()) <!-- Verifica se há atualizações -->
@@ -61,7 +67,7 @@
                     </option>
                 @endforeach
             </select>
-
+            </div>
             <div>
                 <h3>Detalhes da Atualização</h3>
                 <p><strong>Descrição:</strong> <span id="descricao_atualizacao">Selecione uma atualização para ver os detalhes.</span></p>
@@ -75,8 +81,5 @@
 
     <br><br>
 
-    <a href="{{ route('chamados.index') }}">
-        <button type="button">Voltar para a Lista</button>
-    </a>
 </body>
 </html>

@@ -14,12 +14,12 @@
 @include('chamados.header')
 
 
-
-    <h2>Lista de Chamados</h2>
-
+ <div class="index">
+    <h2 class="h2">Lista de Chamados</h2>
     <a href="{{ route('chamados.create') }}">
         <button type="button" class="btn-abrir">Abrir Chamado</button>
     </a>
+
 
     @if($chamados->isEmpty())
         <p>Nenhum chamado foi encontrado.</p>
@@ -47,22 +47,22 @@
                         <td>{{ $chamado->id }}</td>
                         <td>{{ $chamado->tipo->nome }}</td>
                         <td>{{ $chamado->descricao_resumida }}</td>
-                        <td>{{ $chamado->local->nome }}</td> <!-- Supondo que o campo que contém o nome no modelo Local é 'nome' -->
+                        <td>{{ $chamado->local->nome }}</td>
                         <td>{{ $chamado->solicitante }}</td>
                         <td>{{ $chamado->status ? $chamado->status->nome : 'Indefinido' }}</td>
 
                         <td>{{ \Carbon\Carbon::parse($chamado->data_abertura)->format('d/m/Y') }}</td>
                         <td>{{ $chamado->data_encerramento ? \Carbon\Carbon::parse($chamado->data_encerramento)->format('d/m/Y') : 'N/A' }}</td>
                         <td>
-                            <a href="{{ route('chamados.show', $chamado->id) }}" style="text-decoration: none;">
+                            <a href="{{ route('chamados.show', $chamado->id) }}">
                                 <button type="button" class="btn-visualizar">Visualizar</button>
                             </a>
                             
-                            <a href="{{ route('chamados.edit', $chamado->id) }}" style="text-decoration: none;">
+                            <a href="{{ route('chamados.edit', $chamado->id) }}">
                     <button type="button"class="btn-editar">Editar</button>
                             </a>
 
-                            <a href="{{ route('chamados.delete', $chamado->id) }}" style="text-decoration: none;">
+                            <a href="{{ route('chamados.delete', $chamado->id) }}">
                             <button type="button" class="btn-eliminar">Eliminar</button>
 
                     </tr>
@@ -75,7 +75,7 @@
 
     @endif
 
+    </div>
 
-</div>
 </body>
 </html>

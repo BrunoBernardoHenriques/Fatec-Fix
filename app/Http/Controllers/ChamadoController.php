@@ -46,7 +46,6 @@ class ChamadoController extends Controller
         $chamado->descricao_completa = $request->descricao_completa;
         $chamado->local_id = $request->local_id; // Atualiza para usar local_id
         $chamado->solicitante = $request->solicitante;
-        $chamado->data_abertura = now();
         $chamado->status_id = $request->status_id; // Atualiza para usar status_id
         $chamado->created_by = auth()->id(); // Registra o ID do usuário que criou o chamado
         $chamado->save();
@@ -154,20 +153,30 @@ public function dashboard(Request $request)
     }
 
     // Obter os dados para os gráficos
-    $tipoChamados = $query->join('tipos_chamado', 'chamados.tipo_id', '=', 'tipos_chamado.id')
-        ->selectRaw('tipos_chamado.nome as tipo, COUNT(*) as count')
-        ->groupBy('tipos_chamado.nome')
-        ->pluck('count', 'tipo');
+    $tipoChamados = (clone $query)
+    ->join('tipos_chamado', 'chamados.tipo_id', '=', 'tipos_chamado.id')
+    ->selectRaw('tipos_chamado.nome as tipo, COUNT(*) as count')
+    ->groupBy('tipos_chamado.nome')
+    ->pluck('count', 'tipo');
 
-    $lugaresChamados = $query->join('locais', 'chamados.local_id', '=', 'locais.id')
-        ->selectRaw('locais.nome as place, COUNT(*) as count')
-        ->groupBy('locais.nome')
-        ->pluck('count', 'place');
+$lugaresChamados = (clone $query)
+    ->join('locais', 'chamados.local_id', '=', 'locais.id')
+    ->selectRaw('locais.nome as place, COUNT(*) as count')
+    ->groupBy('locais.nome')
+    ->pluck('count', 'place');
 
-    $statusChamados = $query->join('status', 'chamados.status_id', '=', 'status.id')
-        ->selectRaw('status.nome as status_name, COUNT(*) as count')
-        ->groupBy('status.nome')
-        ->pluck('count', 'status_name');
+$statusChamados = (clone $query)
+    ->join('status', 'chamados.status_id', '=', 'status.id')
+    ->selectRaw('status.nome as status_name, COUNT(*) as count')
+    ->groupBy('status.nome')
+    ->pluck('count', 'status_name');
+
+    
+    
+
+    
+    
+    
 
     // Verificar se não há registros
     $noRecordsFound = $query->count() == 0;

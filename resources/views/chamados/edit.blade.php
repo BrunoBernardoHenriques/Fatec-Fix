@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/chamados/edit.css"> 
     <title>Editar Chamado</title>
 </head>
 
-<body>
+<body class="body_edit">
 @include('chamados.header')
     <h1>Editar Chamado #{{ $chamado->id }}</h1>
 
@@ -21,7 +22,8 @@
         </div>
     @endif
 
-    <form action="{{ route('chamados.update', $chamado->id) }}" method="POST">
+    <div class="div_centro">
+    <form action="{{ route('chamados.update', $chamado->id) }}" method="POST" class="form_edit">
         @csrf
         @method('PUT') <!-- Método para atualização -->
         
@@ -74,9 +76,12 @@
 
         <br><br>
 
-        <button type="submit">Atualizar Chamado</button>
+        <button type="submit">Atualizar Chamado</button>   
+        <br>
+        <a href="{{ route('chamados.index') }}">Voltar para a listagem de chamados</a>
     </form>
 
-    <a href="{{ route('chamados.index') }}">Voltar para a listagem de chamados</a>
+ 
+    </div>
 </body>
 </html>

@@ -1,12 +1,14 @@
 .header-index {
     background-color: #bd0e0e; 
-    height: 40px;
+    height: 45px;
     display: flex;
     justify-content: space-between; 
     align-items: center;
     margin: 0;
     padding: 10px;
     color: aliceblue;
+    width: 100%;
+    position: fixed; 
 }
 
 .btn-logout {

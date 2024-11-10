@@ -15,7 +15,6 @@ class Chamado extends Model
         'descricao_completa',
         'local',
         'solicitante',
-        'data_abertura',
         'data_encerramento',
         'status',
         'created_by',
