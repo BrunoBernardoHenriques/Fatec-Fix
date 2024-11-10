@@ -37,7 +37,9 @@
     padding: 2;
     text-align: center;
     margin-top: 5px; 
+    text-decoration: none;
 }
+
 .btn-editar {
     appearance: button;
     backface-visibility: hidden;

@@ -54,15 +54,15 @@
                         <td>{{ \Carbon\Carbon::parse($chamado->data_abertura)->format('d/m/Y') }}</td>
                         <td>{{ $chamado->data_encerramento ? \Carbon\Carbon::parse($chamado->data_encerramento)->format('d/m/Y') : 'N/A' }}</td>
                         <td>
-                            <a href="{{ route('chamados.show', $chamado->id) }}">
+                            <a href="{{ route('chamados.show', $chamado->id) }}" style="text-decoration: none;">
                                 <button type="button" class="btn-visualizar">Visualizar</button>
                             </a>
                             
-                            <a href="{{ route('chamados.edit', $chamado->id) }}">
+                            <a href="{{ route('chamados.edit', $chamado->id) }}" style="text-decoration: none;">
                     <button type="button"class="btn-editar">Editar</button>
                             </a>
 
-                            <a href="{{ route('chamados.delete', $chamado->id) }}">
+                            <a href="{{ route('chamados.delete', $chamado->id) }}" style="text-decoration: none;">
                             <button type="button" class="btn-eliminar">Eliminar</button>
 
                     </tr>
