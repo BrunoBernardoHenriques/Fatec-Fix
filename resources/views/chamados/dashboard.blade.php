@@ -52,157 +52,158 @@
         </div>
 
         <script>
-            // Função para gerar cores únicas
-            function generateColors(num) {
-                const colors = [];
-                for (let i = 0; i < num; i++) {
-                    const color = `hsl(${(i * 137.508) % 360}, 70%, 50%)`; 
-                    colors.push(color);
-                }
-                return colors;
-            }
+    // Função para gerar cores únicas
+    function generateColors(num) {
+        const colors = [];
+        for (let i = 0; i < num; i++) {
+            const color = `hsl(${(i * 137.508) % 360}, 70%, 50%)`; 
+            colors.push(color);
+        }
+        return colors;
+    }
 
-            const tipoChamadosData = @json($tipoChamados);
-            const lugaresChamadosData = @json($lugaresChamados);
-            const statusChamadosData = @json($statusChamados);
+    const tipoChamadosData = @json($tipoChamados);
+    const lugaresChamadosData = @json($lugaresChamados);
+    const statusChamadosData = @json($statusChamados);
 
-            // Função para ordenar os dados de forma decrescente
-            function sortData(data) {
-                const sortedData = Object.entries(data)
-                    .sort((a, b) => b[1] - a[1]);  // Ordena de maior para menor
-                return {
-                    labels: sortedData.map(item => `${item[0]} (${item[1]})`),  // Formata os rótulos
-                    values: sortedData.map(item => item[1])  // Obtém os valores ordenados
-                };
-            }
+    // Função para ordenar os dados de forma decrescente
+    function sortData(data) {
+        const sortedData = Object.entries(data)
+            .sort((a, b) => b[1] - a[1]);  // Ordena de maior para menor
+        return {
+            labels: sortedData.map(item => `${item[0]} (${item[1]})`),  // Formata os rótulos
+            values: sortedData.map(item => item[1])  // Obtém os valores ordenados
+        };
+    }
 
-            // Função para obter os 10 primeiros registros para a legenda
-            function getTop10ForLegend(data) {
-                const sortedData = Object.entries(data)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 10);  // Limita a 10 primeiros para a legenda
+    // Função para obter os 10 primeiros registros para a legenda
+    function getTop10ForLegend(data) {
+        const sortedData = Object.entries(data)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10);  // Limita a 10 primeiros para a legenda
 
-                return {
-                    labels: sortedData.map(item => `${item[0]} (${item[1]})`),
-                    values: sortedData.map(item => item[1])
-                };
-            }
+        return {
+            labels: sortedData.map(item => `${item[0]} (${item[1]})`),
+            values: sortedData.map(item => item[1])
+        };
+    }
 
-            // Ordenar e configurar gráfico de tipos de chamados
-            const sortedTipoChamados = sortData(tipoChamadosData);
-            new Chart(document.getElementById('tipoChamadosChart'), {
-                type: 'pie',
-                data: {
-                    labels: sortedTipoChamados.labels,
-                    datasets: [{
-                        data: sortedTipoChamados.values,
-                        backgroundColor: generateColors(sortedTipoChamados.labels.length),
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    let label = tooltipItem.label || '';
-                                    let value = tooltipItem.raw || 0;
-                                    return `${label} (${value})`; 
-                                }
-                            }
+    // Ordenar e configurar gráfico de tipos de chamados
+    const sortedTipoChamados = sortData(tipoChamadosData);
+    new Chart(document.getElementById('tipoChamadosChart'), {
+        type: 'pie',
+        data: {
+            labels: sortedTipoChamados.labels,
+            datasets: [{
+                data: sortedTipoChamados.values,
+                backgroundColor: generateColors(sortedTipoChamados.labels.length),
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function() {
+                            return ''; // Remove o título superior do tooltip
                         },
-                        legend: {
-                            position: 'right', 
-                            labels: {
-                                usePointStyle: true,
-                                padding: 10,
-                                boxWidth: 12
-                            }
+                        label: function(tooltipItem) {
+                            return tooltipItem.label; // Exibe apenas o rótulo do item
+                        }
+                    }
+                },
+                legend: {
+                    position: 'right', 
+                    labels: {
+                        usePointStyle: true,
+                        padding: 10,
+                        boxWidth: 12
+                    }
+                }
+            }
+        }
+    });
+
+    // Ordenar e configurar gráfico de lugares de chamados (com todos os dados no gráfico, mas legenda com os 10 mais)
+    const sortedLugaresChamados = sortData(lugaresChamadosData);
+    new Chart(document.getElementById('lugaresChamadosChart'), {
+        type: 'pie',
+        data: {
+            labels: sortedLugaresChamados.labels,  // Todos os dados no gráfico
+            datasets: [{
+                data: sortedLugaresChamados.values,
+                backgroundColor: generateColors(sortedLugaresChamados.labels.length),
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function() {
+                            return ''; // Remove o título superior do tooltip
+                        },
+                        label: function(tooltipItem) {
+                            return tooltipItem.label; // Exibe apenas o rótulo do item
+                        }
+                    }
+                },
+                legend: {
+                    position: 'right', 
+                    labels: {
+                        usePointStyle: true,
+                        padding: 10,
+                        boxWidth: 12,
+                        generateLabels: function(chart) {
+                            const labels = chart.data.labels;
+                            return labels.slice(0, 10).map((label, index) => ({
+                                text: label,
+                                fillStyle: chart.data.datasets[0].backgroundColor[index]
+                            }));
                         }
                     }
                 }
-            });
+            }
+        }
+    });
 
-            // Ordenar e configurar gráfico de lugares de chamados (com todos os dados no gráfico, mas legenda com os 10 mais)
-            const sortedLugaresChamados = sortData(lugaresChamadosData);
-            const top10LugaresChamados = getTop10ForLegend(lugaresChamadosData);  // Apenas para a legenda
-
-            new Chart(document.getElementById('lugaresChamadosChart'), {
-                type: 'pie',
-                data: {
-                    labels: sortedLugaresChamados.labels,  // Todos os dados no gráfico
-                    datasets: [{
-                        data: sortedLugaresChamados.values,
-                        backgroundColor: generateColors(sortedLugaresChamados.labels.length),
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    let label = tooltipItem.label || '';
-                                    let value = tooltipItem.raw || 0;
-                                    return `${label} (${value})`; 
-                                }
-                            }
+    // Ordenar e configurar gráfico de status de chamados
+    const sortedStatusChamados = sortData(statusChamadosData);
+    new Chart(document.getElementById('statusChamadosChart'), {
+        type: 'pie',
+        data: {
+            labels: sortedStatusChamados.labels,
+            datasets: [{
+                data: sortedStatusChamados.values,
+                backgroundColor: generateColors(sortedStatusChamados.labels.length),
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function() {
+                            return ''; // Remove o título superior do tooltip
                         },
-                        legend: {
-                            position: 'right', 
-                            labels: {
-                                usePointStyle: true,
-                                padding: 10,
-                                boxWidth: 12,
-                                generateLabels: function(chart) {
-                                    const labels = chart.data.labels;
-                                    // Limitar a exibição da legenda aos 10 mais
-                                    return labels.slice(0, 10).map((label, index) => ({
-                                        text: label,
-                                        fillStyle: chart.data.datasets[0].backgroundColor[index]
-                                    }));
-                                }
-                            }
+                        label: function(tooltipItem) {
+                            return tooltipItem.label; // Exibe apenas o rótulo do item
                         }
                     }
-                }
-            });
-
-            // Ordenar e configurar gráfico de status de chamados
-            const sortedStatusChamados = sortData(statusChamadosData);
-            new Chart(document.getElementById('statusChamadosChart'), {
-                type: 'pie',
-                data: {
-                    labels: sortedStatusChamados.labels,
-                    datasets: [{
-                        data: sortedStatusChamados.values,
-                        backgroundColor: generateColors(sortedStatusChamados.labels.length),
-                    }]
                 },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    let label = tooltipItem.label || '';
-                                    let value = tooltipItem.raw || 0;
-                                    return `${label} (${value})`; 
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'right', 
-                            labels: {
-                                usePointStyle: true,
-                                padding: 10,
-                                boxWidth: 12
-                            }
-                        }
+                legend: {
+                    position: 'right', 
+                    labels: {
+                        usePointStyle: true,
+                        padding: 10,
+                        boxWidth: 12
                     }
                 }
-            });
-        </script>
+            }
+        }
+    });
+</script>
+
     @endif
 </body>
 </html>

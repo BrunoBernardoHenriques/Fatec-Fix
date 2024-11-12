@@ -1,0 +1,85 @@
+.register-body {
+    background-color: #f2f2f2; /* Cinza claro */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.register-container {
+    background-color: #ffffff; /* Fundo branco do formulário */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    margin-bottom: 2rem;
+}
+
+.form-control {
+    border-radius: 4px;
+}
+
+.header-index {
+    background-color: #bd0e0e; 
+    height: 40px; 
+    width: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    display: flex; /
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px;
+    color: aliceblue;
+    z-index: 1000; 
+}
+
+
+.H1_HEADER{
+  color: rgb(255, 255, 255);
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%; /* Largura total */
+    padding: 0.5rem; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Borda padrão */
+    border-radius: 4px; /* Bordas arredondadas */
+    margin-bottom: 1rem; /* Espaçamento abaixo de cada campo */
+}
+
+/* Estilo do botão de envio */
+button[type="submit"] {
+    background-color: #28a745; /* Verde para o botão de criação */
+    border: none; /* Sem borda */
+    color: white; /* Cor do texto */
+    padding: 0.75rem 1.5rem; /* Espaçamento interno do botão */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte */
+    
+}
+
+/* Estilo do botão de envio ao passar o mouse */
+button[type="submit"]:hover {
+    background-color: #218838; /* Tom mais escuro de verde ao passar o mouse */
+}
+
+/* Estilo do link de voltar */
+a {
+    display: inline-block; /* Para que o link funcione como um botão */
+    margin-top: 1rem; /* Espaçamento acima do link */
+    color: #007bff; /* Cor do link */
+    text-decoration: none; /* Remover o sublinhado */
+}
+
+/* Estilo do link de voltar ao passar o mouse */
+a:hover {
+    text-decoration: underline; /* Sublinha o link ao passar o mouse */
+}

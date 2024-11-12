@@ -64,3 +64,18 @@ form select, form button {
     color: #333;
     padding-top: 10px;
 }
+button[type="submit"] {
+    background-color: #28a745; /* Verde para o botão de criação */
+    border: none; /* Sem borda */
+    color: white; /* Cor do texto */
+    padding: 0.75rem 1.5rem; /* Espaçamento interno do botão */
+    border-radius: 4px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte */
+    
+}
+
+/* Estilo do botão de envio ao passar o mouse */
+button[type="submit"]:hover {
+    background-color: #218838; /* Tom mais escuro de verde ao passar o mouse */
+}

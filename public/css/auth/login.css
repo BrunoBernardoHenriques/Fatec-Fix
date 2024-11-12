@@ -25,10 +25,30 @@ h1 {
 }
 
 .btn-success {
-    background-color: #28a745; /* Verde para o botão de login */
+    background-color: #28a745; 
     border: none;
 }
 
 .btn-success:hover {
     background-color: #282188;
 }
+.header-index {
+    background-color: #bd0e0e; 
+    height: 40px; 
+    width: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    display: flex; /
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px;
+    color: aliceblue;
+    z-index: 1000; 
+}
+
+
+.H1_HEADER{
+  color: rgb(255, 255, 255);
+}
+
