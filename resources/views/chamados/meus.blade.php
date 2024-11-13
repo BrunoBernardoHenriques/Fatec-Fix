@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/chamados/index.css">
 </head>
 <body>
-@include('chamados.header')
+@include('componentes.header')
 
         <h2>Meus Chamados</h2>
 
@@ -63,8 +63,8 @@
             </table>
             
             <!-- Paginação -->
-            <div class="d-flex justify-content-center">
-                {{ $chamados->links() }}
+            <div class="pagination-container">
+                {{ $chamados->links('chamados.pagination') }}
             </div>
         @endif
     </div>

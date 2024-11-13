@@ -8,7 +8,7 @@
 </head>
 
 <body class="body_edit">
-@include('chamados.header')
+@include('componentes.header')
     <h1>Editar Chamado #{{ $chamado->id }}</h1>
 
     <!-- Exibir mensagens de erro de validação -->

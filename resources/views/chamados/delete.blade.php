@@ -10,7 +10,7 @@
 </head>
 
 <body>
-@include('chamados.header')
+@include('componentes.header')
 
 
 <div class="container">

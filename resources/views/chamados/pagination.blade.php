@@ -73,8 +73,8 @@
 
         {{-- Campo de entrada para ir para uma página específica --}}
         <form action="{{ url()->current() }}" method="GET">
-            <input type="number" name="page" min="1" max="{{ $paginator->lastPage() }}" placeholder="Ir para a página">
-            <button type="submit">Ir</button>
+            <input type="number" name="page" min="1" max="{{ $paginator->lastPage() }}" placeholder="Ir para a página" value="{{$paginator->currentPage()}}">
+            <button class="btn-abrir" type="submit">Ir</button>
         </form>
     </div>
 @endif

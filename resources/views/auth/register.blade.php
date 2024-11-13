@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/auth/register.css">
 </head>
 <body class="register-body">
-@include('chamados.header')
+@include('componentes.header')
 
 <div class="register-container">
     <h1>Registrar</h1>

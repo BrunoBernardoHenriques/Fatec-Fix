@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/chamados/index.css">
 </head>
 <body>
-@include('chamados.header')
+@include('componentes.header')
     <div >
         <h1>Gerenciar Usuários</h1>
 

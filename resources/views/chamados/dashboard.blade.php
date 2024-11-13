@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-@include('chamados.header')
+@include('componentes.header')
     <h1>Dashboard</h1>
 
     <form method="GET" action="{{ route('dashboard') }}">

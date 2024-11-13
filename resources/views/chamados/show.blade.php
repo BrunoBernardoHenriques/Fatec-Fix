@@ -29,7 +29,7 @@
 
 
 <body>
-@include('chamados.header')
+@include('componentes.header')
 
 <div class="container">
 <div class="call-details">

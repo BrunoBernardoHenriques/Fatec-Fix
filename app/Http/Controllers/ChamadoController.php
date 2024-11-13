@@ -9,13 +9,61 @@ use Illuminate\Http\Request;
 
 class ChamadoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Carrega os chamados junto com seus locais e status
-        $chamados = Chamado::with(['local', 'status'])
-        ->paginate(15); 
-        return view('chamados.index', compact('chamados'));
+        $query = Chamado::query();
+    
+        // Filtrar por tipo
+        if ($request->has('tipos') && !empty($request->tipos)) {
+            $query->whereIn('tipo_id', $request->tipos);
+        }
+    
+        // Filtrar por local
+        if ($request->has('locais') && !empty($request->locais)) {
+            $query->whereIn('local_id', $request->locais);
+        }
+    
+        // Filtrar por status
+        if ($request->has('status') && !empty($request->status)) {
+            $query->whereIn('status_id', $request->status);
+        }
+    
+        // Filtrar por data mínima
+        if ($request->has('data_minima') && $request->data_minima) {
+            $query->whereDate('created_at', '>=', $request->data_minima);
+        }
+    
+        // Filtrar por data máxima
+        if ($request->has('data_maxima') && $request->data_maxima) {
+            $query->whereDate('created_at', '<=', $request->data_maxima);
+        }
+    
+        // Ordenar
+        if ($request->input('ordem') === 'mais-recentes') {
+            $query->orderBy('created_at', 'desc'); // Ordena por mais recentes
+        } elseif ($request->input('ordem') === 'mais-antigos') {
+            $query->orderBy('created_at', 'asc'); // Ordena por mais antigos
+        }
+    
+        // Paginando os resultados com os filtros
+        $chamados = $query->paginate(10)->appends($request->except('page'));
+    
+        // Carregar tipos, locais e status para a view
+        $tipos = TipoChamado::all();
+        $locais = Local::all();
+        $statusList = Status::all();
+    
+        return view('chamados.index', compact('chamados', 'tipos', 'locais', 'statusList'));
     }
+    
+
+
+    
+    
+    
+    
+    
+    
 
 
 

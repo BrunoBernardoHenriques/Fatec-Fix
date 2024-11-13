@@ -3,9 +3,11 @@
     background-color: #28a745;
     border: none;
     color: white;
-    padding: 0.15rem 0.5rem;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    margin: 0;
+    padding: 8px 12px;
     font-size: 16px;
 }
 .bnt-abrir:hover {
@@ -98,14 +100,32 @@
     color: white;
     padding: 8px 16px;
 }
-.index{
+.index {
     display: flex;
-    height: 100px;
-    align-items: center; 
+    align-items: center;
+    gap: 15px; /* Adiciona espaço entre os elementos */
+    margin-bottom: 20px; /* Espaço abaixo do container */
     padding: 10px;
-   
     padding-top: 45px;
+    background-color: #f8f9fa; /* Opcional: cor de fundo para destaque */
 }
-.h2{
-    padding-right: 35px;
+.h2 {
+    margin: 0;
+    font-size: 24px;
+}
+.tabela{
+    margin-top: 20px; /* Espaçamento entre o título e a tabela */
+    width: 100%; /* Para ocupar toda a largura disponível */
+}
+table {
+    width: 100%; /* Garante que a tabela ocupa todo o espaço */
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center; /* Centraliza a paginação */
+    margin-top: 20px;
+}
+td a{
+    text-decoration: none;
 }
