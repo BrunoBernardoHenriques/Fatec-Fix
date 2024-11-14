@@ -55,6 +55,21 @@
                     <button type="button" onclick="adicionarFiltro('status', 'Status de Chamado')" class="btn-abrir">Adicionar Status</button>
                 </div>
 
+<!-- Filtro por usuário que criou o chamado -->
+<div class="form-group">
+    <label>Criado por:</label>
+    <select id="usuarioSelect"> <!-- id deve corresponder ao usado em adicionarUsuario -->
+        <option value="">Selecione um usuário</option>
+        @foreach($usuarios as $usuario)
+            <option value="{{ $usuario->id }}">{{ $usuario->name }}</option>
+        @endforeach
+    </select>
+    <button type="button" onclick="adicionarUsuario()" class="btn-abrir">Adicionar Usuário</button>
+</div>
+
+
+
+
                 <!-- Data Mínima e Máxima -->
                 <div class="form-group">
                     <label>Data Mínima:</label>
@@ -75,10 +90,11 @@
     </div>
 
     <script>
-    const filtrosSelecionados = {
+ const filtrosSelecionados = {
         tipos: [],
         locais: [],
-        status: []
+        status: [],
+        usuarios: []  // Campo para usuários
     };
 
     function adicionarFiltro(tipo, label) {
@@ -86,11 +102,22 @@
         const valor = select.value;
         const texto = select.options[select.selectedIndex].text;
 
-        // Evitar adicionar duplicatas
         if (!filtrosSelecionados[tipo].includes(valor)) {
             filtrosSelecionados[tipo].push(valor);
             mostrarFiltroSelecionado(tipo, label, valor, texto);
             atualizarInputsOcultos(tipo);
+        }
+    }
+
+    function adicionarUsuario() {
+        const select = document.getElementById('usuarioSelect');
+        const valor = select.value;
+        const texto = select.options[select.selectedIndex].text;
+
+        if (!filtrosSelecionados.usuarios.includes(valor) && valor) {
+            filtrosSelecionados.usuarios.push(valor);
+            mostrarFiltroSelecionado('usuarios', 'Usuário', valor, texto);
+            atualizarInputsOcultos('usuarios');
         }
     }
 
@@ -110,12 +137,9 @@
 
     function atualizarInputsOcultos(tipo) {
         const formulario = document.getElementById('filtroForm');
-
-        // Remove inputs ocultos antigos do tipo específico
         const inputsAntigos = formulario.querySelectorAll(`input[name="${tipo}[]"]`);
         inputsAntigos.forEach(input => input.remove());
 
-        // Adiciona novos inputs ocultos com os valores atualizados
         filtrosSelecionados[tipo].forEach(valor => {
             const input = document.createElement('input');
             input.type = 'hidden';
@@ -125,17 +149,14 @@
         });
     }
 
-    // Abrir o modal quando o botão "Filtros" for clicado
     document.getElementById('btn-filtros').addEventListener('click', function() {
         document.getElementById('filtrosModal').style.display = 'block';
     });
 
-    // Fechar o modal ao clicar no "X" (span com id "closeModal")
     document.getElementById('closeModal').addEventListener('click', function() {
         document.getElementById('filtrosModal').style.display = 'none';
     });
 
-    // Fechar o modal ao clicar fora da área do modal
     window.addEventListener('click', function(event) {
         const modal = document.getElementById('filtrosModal');
         if (event.target === modal) {

@@ -13,9 +13,7 @@
 .bnt-abrir:hover {
     background-color: #218838;
 }
-.acoes{
-    text-align: center;
-}
+
 
 .btn-visualizar {
     appearance: button;
@@ -54,7 +52,7 @@
 .btn-eliminar {
     appearance: button;
     backface-visibility: hidden;
-    background-color: red;
+    background-color: #dc3545; ;
     border-radius: 6px;
     border-width: 0;
     box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
@@ -113,12 +111,11 @@
     margin: 0;
     font-size: 24px;
 }
-.tabela{
-    margin-top: 20px; /* Espaçamento entre o título e a tabela */
-    width: 100%; /* Para ocupar toda a largura disponível */
-}
+
 table {
-    width: 100%; /* Garante que a tabela ocupa todo o espaço */
+    width: 100%;   
+    padding-left: 10px;
+    padding-right: 10px; /* Garante que a tabela ocupa todo o espaço */
 }
 
 .pagination-container {
@@ -128,4 +125,44 @@ table {
 }
 td a{
     text-decoration: none;
+}
+
+
+.badge-danger {
+    background-color: #dc3545; 
+    color: white;
+}
+
+.badge-alert {
+    background-color: #f0ad4e; 
+    color: white;
+}
+
+.badge-success {
+    background-color: #28A745;
+    color: white;
+
+}
+.tabela-responsive {
+    overflow-x: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table .id {
+    min-width: 50px;
+}
+
+.table .nome, .table .descricao_resumida, .table .local, .table .solicitante {
+    white-space: nowrap;
+}
+
+.table .acoes button {
+    margin: 2px;
+    width: 100%;
 }

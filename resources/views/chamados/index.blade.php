@@ -6,6 +6,8 @@
     <title>Listagem de Chamados</title>
     <link rel="stylesheet" href="/css/chamados/index.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
    
 </head>
 <body>
@@ -22,123 +24,67 @@
     @if($chamados->isEmpty())
         <p>Nenhum chamado foi encontrado.</p>
     @else
-        <div class="tabela">
-            <table class="table table-striped table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Tipo</th>
-                        <th>Descrição Resumida</th>
-                        <th>Local</th>
-                        <th>Solicitante</th>
-                        <th>Status</th>
-                        <th>Data de Abertura</th>
-                        <th>Data de Encerramento</th>
-                        <th class="acoes">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($chamados as $chamado)
-                        <tr>
-                            <td>{{ $chamado->id }}</td>
-                            <td>{{ $chamado->tipo->nome }}</td>
-                            <td>{{ $chamado->descricao_resumida }}</td>
-                            <td>{{ $chamado->local->nome }}</td>
-                            <td>{{ $chamado->solicitante }}</td>
-                            <td>{{ $chamado->status ? $chamado->status->nome : 'Indefinido' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($chamado->data_abertura)->format('d/m/Y') }}</td>
-                            <td>{{ $chamado->data_encerramento ? \Carbon\Carbon::parse($chamado->data_encerramento)->format('d/m/Y') : 'N/A' }}</td>
-                            <td>
-                                <a href="{{ route('chamados.show', $chamado->id) }}">
-                                    <button type="button" class="btn-visualizar">Visualizar</button>
-                                </a>
-                                <a href="{{ route('chamados.edit', $chamado->id) }}">
-                                    <button type="button" class="btn-editar">Editar</button>
-                                </a>
-                                <a href="{{ route('chamados.delete', $chamado->id) }}">
-                                    <button type="button" class="btn-eliminar">Eliminar</button>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    <div class="table-responsive"  style="padding-left: 10px; padding-right: 10px;">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th style="width: 5%;">ID</th>
+                <th style="width: 10%;">Tipo</th>
+                <th style="width: 20%;">Descrição Resumida</th>
+                <th style="width: 10%;">Local</th>
+                <th style="width: 10%;">Solicitante</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 10%;">Data de Abertura</th>
+                <th style="width: 10%;">Data de Encerramento</th>
+                <th style="width: 15%;" class="acoes">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($chamados as $chamado)
+                <tr>
+                    <td class="id">{{ $chamado->id }}</td>
+                    <td class="nome">{{ $chamado->tipo->nome }}</td>
+                    <td>{{ $chamado->descricao_resumida }}</td>
+                    <td>{{ $chamado->local->nome }}</td>
+                    <td>{{ $chamado->solicitante }}</td>
+
+                    @if($chamado->status)
+                        @if($chamado->status->id == 1)
+                            <td><span class="badge badge-danger text-uppercase">{{ $chamado->status->nome }}</span></td>
+                        @elseif($chamado->status->id == 2)
+                            <td><span class="badge badge-alert text-uppercase">{{ $chamado->status->nome }}</span></td>
+                        @elseif($chamado->status->id == 3)
+                            <td><span class="badge badge-success text-uppercase">{{ $chamado->status->nome }}</span></td>
+                        @else
+                            <td>{{ $chamado->status->nome }}</td>
+                        @endif
+                    @endif
+
+                    <td>{{ \Carbon\Carbon::parse($chamado->data_abertura)->format('d/m/Y') }}</td>
+                    <td>{{ $chamado->data_encerramento ? \Carbon\Carbon::parse($chamado->data_encerramento)->format('d/m/Y') : 'N/A' }}</td>
+                    <td class="acao">
+                        <a href="{{ route('chamados.show', $chamado->id) }}">
+                            <button type="button" class="btn-visualizar"><i class="fas fa-eye"></i> Visualizar</button>
+                        </a>
+                        <a href="{{ route('chamados.edit', $chamado->id) }}">
+                            <button type="button" class="btn-editar"><i class="fas fa-pencil-alt"></i> Editar</button>
+                        </a>
+                        <a href="{{ route('chamados.delete', $chamado->id) }}">
+                            <button type="button" class="btn-eliminar"><i class="fas fa-trash"></i> Eliminar</button>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
             <div class="pagination-container">
                 {{ $chamados->links('chamados.pagination') }}
             </div>
         </div>
     @endif
 
-    <script>
-    const filtrosSelecionados = {
-        tipos: [],
-        locais: [],
-        status: []
-    };
-
-    function adicionarFiltro(tipo, label) {
-        const select = document.getElementById(`${tipo}Select`);
-        const valor = select.value;
-        const texto = select.options[select.selectedIndex].text;
-
-        // Evitar adicionar duplicatas
-        if (!filtrosSelecionados[tipo].includes(valor)) {
-            filtrosSelecionados[tipo].push(valor);
-            mostrarFiltroSelecionado(tipo, label, valor, texto);
-            atualizarInputsOcultos(tipo);
-        }
-    }
-
-    function mostrarFiltroSelecionado(tipo, label, valor, texto) {
-        const selectedFiltersContainer = document.getElementById('selectedFilters');
-        const filterDiv = document.createElement('div');
-        filterDiv.classList.add('selected-filter');
-        filterDiv.innerHTML = `${label}: ${texto} <span onclick="removerFiltro('${tipo}', '${valor}', this)">×</span>`;
-        selectedFiltersContainer.appendChild(filterDiv);
-    }
-
-    function removerFiltro(tipo, valor, elemento) {
-        filtrosSelecionados[tipo] = filtrosSelecionados[tipo].filter(item => item !== valor);
-        elemento.parentElement.remove();
-        atualizarInputsOcultos(tipo);
-    }
-
-    function atualizarInputsOcultos(tipo) {
-        const formulario = document.getElementById('filtroForm');
-
-        // Remove inputs ocultos antigos do tipo específico
-        const inputsAntigos = formulario.querySelectorAll(`input[name="${tipo}[]"]`);
-        inputsAntigos.forEach(input => input.remove());
-
-        // Adiciona novos inputs ocultos com os valores atualizados
-        filtrosSelecionados[tipo].forEach(valor => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = `${tipo}[]`;
-            input.value = valor;
-            formulario.appendChild(input);
-        });
-    }
-</script>
-<script>
-    // Abrir o modal quando o botão "Filtros" for clicado
-    document.getElementById('btn-filtros').addEventListener('click', function() {
-        document.getElementById('filtrosModal').style.display = 'block';
-    });
-
-    // Fechar o modal ao clicar no "X" (span com id "closeModal")
-    document.getElementById('closeModal').addEventListener('click', function() {
-        document.getElementById('filtrosModal').style.display = 'none';
-    });
-
-    // Fechar o modal ao clicar fora da área do modal
-    window.addEventListener('click', function(event) {
-        const modal = document.getElementById('filtrosModal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-</script>
+    
 
 </body>
 </html>

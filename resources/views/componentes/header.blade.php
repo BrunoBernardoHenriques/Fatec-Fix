@@ -14,8 +14,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="userMenuButton">
             <li><a class="dropdown-item" href="{{ route('chamados.index') }}">Todos os Chamados</a></li>
-                <!-- Opção para visualizar chamados do usuário atual -->
-                <li><a class="dropdown-item" href="{{ route('chamados.meus') }}">Meus Chamados</a></li>
+            
 
                 
                 <!-- Opção para logout -->
