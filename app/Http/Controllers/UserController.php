@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\UserType; // Certifique-se de importar o modelo UserType
 
 class UserController extends Controller
 {
@@ -20,33 +21,39 @@ class UserController extends Controller
     // Função para editar um usuário
     public function editarUsuario($id)
     {
-        // Encontra o usuário pelo ID
-        $usuario = User::findOrFail($id);
+        $usuario = User::with('userType')->findOrFail($id); // Carrega o tipo de usuário
+        $usertypes = UserType::all(); // Carrega todos os tipos de usuários da tabela correta
 
-        // Retorna a view para editar as informações do usuário
-        return view('usuarios.editar', compact('usuario'));
+        return view('usuarios.edit', compact('usuario', 'usertypes'));
     }
 
     // Função para atualizar um usuário
     public function atualizarUsuario(Request $request, $id)
     {
-        // Valida os dados do formulário
+        // Validação dos dados de entrada
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'role' => 'required|in:admin,user', // Supondo que você tenha um campo de papel para o usuário
+            'type' => 'required|exists:user_types,id', // Validar se o tipo existe na tabela user_types
+            'password' => 'nullable|string|min:8|confirmed', // A senha é opcional, mas se fornecida, deve ser validada
         ]);
 
         // Atualiza o usuário no banco de dados
         $usuario = User::findOrFail($id);
         $usuario->name = $request->name;
-        $usuario->email = $request->email;
-        $usuario->role = $request->role; // Atualiza o papel do usuário
+        $usuario->type = $request->type;
+
+        // Se a senha for fornecida, atualiza a senha
+        if ($request->has('password') && !empty($request->password)) {
+            $usuario->password = Hash::make($request->password);
+        }
+
         $usuario->save();
 
         // Redireciona com sucesso
         return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
     }
+
+
 
     // Função para excluir um usuário
     public function excluirUsuario($id)

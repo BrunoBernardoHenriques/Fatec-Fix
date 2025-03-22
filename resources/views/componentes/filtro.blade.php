@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/componentes/filtro.css">
 
-<button type="button" id="btn-filtros" class="btn-abrir">Filtros</button>
+<button type="button" id="btn-filtros" class="btn-abrir"><i class="fa-solid fa-sort"></i> Filtros</button>
  
     <style>
    

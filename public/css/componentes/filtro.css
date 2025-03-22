@@ -110,3 +110,6 @@
     cursor: pointer;
     color: red;
 }
+.form-group select {
+    width: 100%; /* Assegura que o select ocupe 100% da largura do formulário */
+}

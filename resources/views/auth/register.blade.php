@@ -49,7 +49,7 @@
         
         <button type="submit">Registrar</button>
 
-        <a href="{{ route('chamados.index') }}">Voltar para a listagem de chamados</a>
+        <a href="{{ route('usuarios.index') }}">Voltar para a listagem de Usuários</a>
     </form>
     </div>
 

@@ -40,8 +40,8 @@ class ChamadoController extends Controller
     }
 
     // Filtrar por usuário que criou o chamado
-    if ($request->has('created_by') && $request->created_by) {
-        $query->where('created_by', $request->created_by);
+    if ($request->has('usuarios') && !empty($request->usuarios)) {
+        $query->whereIn('created_by', $request->usuarios);
     }
 
     // Ordenar
@@ -63,16 +63,6 @@ class ChamadoController extends Controller
     return view('chamados.index', compact('chamados', 'tipos', 'locais', 'statusList', 'usuarios'));
 }
     
-
-
-    
-    
-    
-    
-    
-    
-
-
 
     public function create()
     {

@@ -38,7 +38,7 @@ class AuthController extends Controller
             'type' => $request->type,  
         ]);
 
-        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
+        return redirect()->route('usuarios.index')->with('success', 'Cadastro realizado com sucesso!');
     }
 
     public function login(Request $request)

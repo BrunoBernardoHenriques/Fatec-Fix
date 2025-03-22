@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Usuários</title>
-    <link rel="stylesheet" href="/css/chamados/index.css">
+    <link rel="stylesheet" href="/css/usuarios/index.css">
 </head>
 <body>
 @include('componentes.header')
-    <div >
-        <h1>Gerenciar Usuários</h1>
-
+   <div class="index">
+        <h2 class="h2">Lista de Usuários</h2>
         <a href="{{ route('auth.register') }}">
-    <button type="button" class="btn-abrir">Adicionar Usuário</button>
+    <button type="button" class="btn_abrir"><i class="fa-solid fa-plus" style="color: #ffffff;"></i>Adicionar Usuário</button>
 </a>
         @if($usuarios->isEmpty())
             <p>Nenhum usuário encontrado.</p>
         @else
 
-        <div class="tabela">
-        <table class="table table-striped table-bordered table-hover">
+    </div>
+        <div class="table-responsive"  style="padding-left: 10px; padding-right: 10px;">
+    <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Tipo</th>
-                        <th>Ações</th>
+                        <th style="width: 15%;" class="acoes">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,9 +34,8 @@
                             <td>{{ $usuario->id }}</td>
                             <td>{{ $usuario->name }}</td>
                             <td>{{ $usuario->userType->type_name }}</td>
-                            <td>
-                                <a href="{{ route('usuarios.editar', $usuario->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                                <a  class="btn btn-primary btn-sm">Chamados Abertos</a>
+                            <td class="acao">
+                                <a href="{{ route('usuarios.editar', $usuario->id) }}" class="btn-editar"><i class="fas fa-pencil-alt"></i>Editar</a>
                             </td>
                         </tr>
                     @endforeach

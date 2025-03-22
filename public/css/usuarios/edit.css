@@ -1,0 +1,89 @@
+.header-index {
+    background-color: #bd0e0e;
+    height: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+    color: aliceblue;
+    position: fixed; /* Fixa o header no topo */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa toda a largura */
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+}
+
+.body_edit {
+    background-color: #f2f2f2;
+    margin: 0;
+    padding-top: 55px; /* Espaço suficiente para o header fixo */
+    min-height: 100vh; /* Garante que o body tenha pelo menos 100% da altura da tela */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.div_centro {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    width: 100%; /* Garantir que ocupa toda a largura */
+}
+
+.form_edit {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto; /* Garante que o formulário não fique para o lado */
+}
+
+
+h1 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #555;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+button[type="submit"] {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
